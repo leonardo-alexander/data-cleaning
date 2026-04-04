@@ -60,7 +60,7 @@ async def load_csv(file: UploadFile):
 @app.post("/process")
 async def process_file(
     file: UploadFile = File(...),
-    mode: str = Query("step1", enum=["step1", "step2", "full"]),
+    mode: str = Query("step1", enum=["step1", "full"]),
 ):
     start_time = time.time()
 
@@ -107,7 +107,7 @@ async def process_file(
 @app.post("/process/download")
 async def process_and_download(
     file: UploadFile = File(...),
-    mode: str = Query("step1", enum=["step1", "step2", "full"]),
+    mode: str = Query("step1", enum=["step1", "full"]),
 ):
     df, error = await load_csv(file)
     if error:
