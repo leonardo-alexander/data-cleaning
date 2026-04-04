@@ -1,8 +1,8 @@
 # Data Cleaning Pipeline API
 
-A simple, rule-based data cleaning pipeline built for a dataset marketplace idea.
+A simple, rule-based data cleaning pipeline designed to transform raw data into standardized datasets.
 
-The goal is to take raw, messy CSV data and turn it into something structured, consistent, and usable — while keeping the process transparent (no ML/black-box stuff).
+The goal is to take raw, messy CSV data and turn it into something structured, consistent, usable, and transparant.
 
 ---
 
