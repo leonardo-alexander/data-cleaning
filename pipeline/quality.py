@@ -27,6 +27,7 @@ def score_data_quality(df):
 
 import numpy as np
 
+
 def summarize_quality(df):
     scores = df["QualityScore"]
     total = len(scores)

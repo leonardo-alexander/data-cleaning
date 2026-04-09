@@ -128,18 +128,34 @@ def validate_inputs(df):
     )
 
 
-def handle_missing(df):
+def handle_missing(df, col_threshold=0.5, row_threshold=0.5):
     df = df.copy()
 
     cols = [c for c in df.columns if c not in SYSTEM_COLUMNS]
-    missing_mask = df[cols].isnull().any(axis=1)
+
+    col_missing_ratio = df[cols].isnull().mean()
+    cols_to_drop = col_missing_ratio[col_missing_ratio > col_threshold].index.tolist()
+
+    df_reduced = df.drop(columns=cols_to_drop)
+
+    remaining_cols = [c for c in df_reduced.columns if c not in SYSTEM_COLUMNS]
+
+    row_missing_ratio = df_reduced[remaining_cols].isnull().mean(axis=1)
+
+    rows_to_keep_mask = row_missing_ratio <= row_threshold
+    df_clean = df_reduced[rows_to_keep_mask]
+    df_missing = df_reduced[~rows_to_keep_mask]
 
     return (
-        df[~missing_mask],
-        df[missing_mask],
+        df_clean,
+        df_missing,
         {
-            "rows_with_missing": int(missing_mask.sum()),
-            "rows_clean": int((~missing_mask).sum()),
+            "dropped_columns": cols_to_drop,
+            "num_dropped_columns": len(cols_to_drop),
+            "rows_with_missing": int((~rows_to_keep_mask).sum()),
+            "rows_clean": int(rows_to_keep_mask.sum()),
+            "col_threshold": col_threshold,
+            "row_threshold": row_threshold,
         },
     )
 

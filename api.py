@@ -76,7 +76,7 @@ async def process_file(
             "mode": "step1",
             "report": report,
             "preview": df_clean.head(5).to_dict(orient="records"),
-            "data": df_clean.to_dict(orient="records")
+            "data": df_clean.to_dict(orient="records"),
         }
 
     # --- FULL ---
@@ -90,7 +90,7 @@ async def process_file(
             "preview": df_clean.head(5).to_dict(orient="records"),
             "invalid_rows": int(len(df_invalid)),
             "missing_rows": int(len(df_missing)),
-            "data": df_clean.to_dict(orient="records")
+            "data": df_clean.to_dict(orient="records"),
         }
 
     else:
