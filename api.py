@@ -86,7 +86,7 @@ async def process_file(
 
         response = {
             "mode": "full",
-            "report": {"step1": report1, "step2": report2},
+            "report": report2,
             "preview": df_clean.head(5).to_dict(orient="records"),
             "invalid_rows": int(len(df_invalid)),
             "missing_rows": int(len(df_missing)),
